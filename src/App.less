@@ -1,0 +1,16 @@
+.coins-container {
+    height: calc(100vh - 45px - 200px);
+    box-sizing: border-box;
+    border: 5px dotted black;
+    margin: 0 auto;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    overflow-y: scroll;
+    @media screen and (min-width: 1024px) {
+        height: calc(100vh - 45px - 280px);
+    }
+}
