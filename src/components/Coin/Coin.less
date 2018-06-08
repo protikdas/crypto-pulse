@@ -1,12 +1,60 @@
+@import "../../css/exports.less";
+
 .coin-container {
     width: 90%;
     min-width: 300px;
-    margin: 10px auto;
     min-height: 100px;
+    margin: 10px auto;
     border-radius: 50px;
-    background: cyan;
+    background: linear-gradient(220deg, @navy, @grey 95%);
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 3px dashed yellow;
+    position: relative;
+
+    &:first-child {
+        margin: 30px auto 10px auto;
+    }
+}
+
+.coin {
+    position: absolute;
+    left: 20px;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.coin-identity {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 60px;
+    margin-left: 20px;
+    & > h2 {
+        color: @lightBlue;
+        @media screen and (min-width: 1024px) {
+            font-size: 32px;
+        }
+    }
+    & > p {
+        color: @lightBlue;
+    }
+}
+
+.coin-avatar {
+    width: 40px;
+}
+
+.coin-acronym {
+    position: relative;
+    top: 3px;
+}
+
+.coin-name {
+    position: relative;
+    bottom: 5px;
 }

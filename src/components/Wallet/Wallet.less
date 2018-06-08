@@ -1,14 +1,66 @@
+@import "../../css/exports.less";
+
+.wallet-positioner {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    @media screen and (min-width: 1024px) {
+        height: 235px;
+    }
+}
+
 .wallet-container {
+    position: relative;
+    z-index: 2;
     height: 150px;
-    background: black;
+    background: @pink;
     color: white;
     margin: 10px auto;
-    border-radius: 50px;
+    border-radius: 10px;
     width: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
     @media screen and (min-width: 1024px) {
+        margin: 30px auto;
+    }
+}
+
+.wallet-under {
+    position: relative;
+    top: -145px;
+    z-index: 1;
+    height: 150px;
+    background: @navy;
+    color: white;
+    margin: 10px auto;
+    border-radius: 10px;
+    width: 85%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media screen and (min-width: 1024px) {
+        top: -160px;
+        margin: 30px auto;
+    }
+}
+
+.wallet-under-2 {
+    position: relative;
+    top: -290px;
+    z-index: 0;
+    height: 150px;
+    background: @blue;
+    color: white;
+    margin: 10px auto;
+    border-radius: 10px;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media screen and (min-width: 1024px) {
+        top: -320px;
         margin: 30px auto;
     }
 }
