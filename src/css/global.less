@@ -28,3 +28,32 @@ p {
     font-family: @rajdhani;
     letter-spacing: 1.5px;
 }  
+
+.round-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    border: 2px solid @lightGrey;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    &:hover {
+        border: 2px solid @green;
+        background: @navy;
+        & > .round-icon-symbol {
+            color: @green
+        }   
+    }
+}
+
+.round-icon-symbol {
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+    top: -1px;
+    color: @lightGrey;
+    transition: all 0.5s ease-in-out;
+}

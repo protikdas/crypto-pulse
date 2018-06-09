@@ -30,6 +30,9 @@ export default class Coin extends Component {
           {viewWidth < 600 && <p className="holding-text">USD</p>}
           <h2 className="coin-price">{viewWidth >= 600 ? `$${price}` : price}</h2>
         </div>
+        <div className="round-icon-wrapper">
+          <div className="round-icon-symbol" style={{fontSize: "40px", top: "-2px"}}>-</div>
+        </div>
       </div>
     );
   }

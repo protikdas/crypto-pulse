@@ -12,6 +12,24 @@
     align-items: center;
     position: relative;
 
+    & > .round-icon-wrapper {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        right: 0;
+        bottom: 3px;
+        &:hover {
+            border: 2px solid red;
+            background: @navy;
+            & > .round-icon-symbol {
+                color: red;
+            }   
+        }
+        @media screen and (max-width: 600px) {
+            background: @pink;
+        }
+    }
+
     &:first-child {
         margin: 20px auto 10px auto;
     }

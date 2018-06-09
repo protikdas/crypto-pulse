@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar/Navbar";
 import SidePanel from "./components/SidePanel/SidePanel";
 import Wallet from "./components/Wallet/Wallet";
 import Coin from "./components/Coin/Coin";
+import AddCoin from "./components/AddCoin/AddCoin";
 
 class App extends Component {
   constructor() {
@@ -66,6 +67,7 @@ class App extends Component {
         </div>
         <SidePanel />
         </div>
+        <AddCoin />
       </div>
     );
   }
