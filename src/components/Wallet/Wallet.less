@@ -14,22 +14,57 @@
     position: relative;
     z-index: 2;
     height: 150px;
-    background: @pink;
+    background: @purple;
+    opacity: 0.9;
     color: white;
     margin: 10px auto;
     border-radius: 10px;
     width: 90%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
     @media screen and (min-width: 1024px) {
         margin: 30px auto;
     }
 }
 
+.wallet-header {
+    position: relative;
+    top: 20px;
+    color: @grey;
+}
+
+.wallet-currency {
+    color: @grey;
+}
+
+
+.wallet-amount-container {
+    display: flex;
+    position: relative;
+    left: -13px;
+}
+
+.wallet-whole {
+    position: relative;
+    top: -15px;
+    font-size: 40px;
+}
+
+.mountain {
+    color: @mountain;
+}
+
+
+.maroon {
+    color: @maroon;
+}
+
 .wallet-under {
     position: relative;
     top: -145px;
+    opacity: 0.5;
     z-index: 1;
     height: 150px;
     background: @navy;
@@ -47,11 +82,12 @@
 }
 
 .wallet-under-2 {
+    opacity: 0.5;
     position: relative;
     top: -290px;
     z-index: 0;
     height: 150px;
-    background: @blue;
+    background: @navy;
     color: white;
     margin: 10px auto;
     border-radius: 10px;
