@@ -1,0 +1,44 @@
+@import "../../css/exports.less";
+
+.suggestion-container {
+    cursor: pointer;
+    width: 90%;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: @lightBlue;
+    margin: 10px 0 0 0;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background: @transparentBlack;
+    & > p {
+        margin-right: 20px;
+    }
+    &:hover {
+        background: @tranparentBlueGrey;
+    }
+}
+
+.selected {
+    background: @mountain;
+    &:hover {
+        background: @mountain;
+    }
+}
+
+.suggestion-left {
+    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & > h3 {
+        margin-left: 10px;
+    }
+}
+
+.suggestion-avatar {
+    max-width: 20px;
+    max-height: 20px;
+    border-radius: 50%;
+}

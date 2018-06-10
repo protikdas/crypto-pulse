@@ -1,17 +1,29 @@
 import React, { Component } from "react";
 import "./Coin.less";
 
-//BITCOIN PNG
-import btc from "../../assets/Bitcoin-icon.png";
-
 export default class Coin extends Component {
   render() {
-    const { viewWidth } = this.props;
-    const avatar = btc;
-    const acronym = "BTC";
-    const name = "BitCoin";
-    const price = "7000.124";
-    const holding = "20.524";
+    const {
+      viewWidth,
+      acronym,
+      avatar,
+      name,
+      previousPrice,
+      price,
+      holding,
+      index,
+      deleteCoin
+    } = this.props;
+
+    let priceChange = "";
+
+    if (previousPrice) {
+      if (previousPrice < price) {
+        priceChange = "increase";
+      } else if (previousPrice > price) {
+        priceChange = "decrease";
+      }
+    }
 
     return (
       <div className="coin-container">
@@ -19,19 +31,28 @@ export default class Coin extends Component {
           <img className="coin-avatar" src={avatar} alt="" />
           <div className="coin-identity">
             <h2 className="coin-acronym">{acronym}</h2>
-            <p className="coin-name">{name}</p>
+            {viewWidth > 600 && <p className="coin-name">{name}</p>}
           </div>
         </div>
         <div className="holding-container">
           <p className="holding-text">HOLDING</p>
           <h2 className="coin-price">{holding}</h2>
         </div>
-        <div className="price-container">
+        <div className={`price-container ${priceChange}`}>
           {viewWidth < 600 && <p className="holding-text">USD</p>}
-          <h2 className="coin-price">{viewWidth >= 600 ? `$${price}` : price}</h2>
+          {price && (
+            <h2 className="coin-price">
+              {viewWidth >= 600 ? `$${price}` : price}
+            </h2>
+          )}
         </div>
-        <div className="round-icon-wrapper">
-          <div className="round-icon-symbol" style={{fontSize: "40px", top: "-2px"}}>-</div>
+        <div
+          className="round-icon-wrapper"
+          onClick={() => {
+            deleteCoin(index);
+          }}
+        >
+          <div className="round-icon-symbol">-</div>
         </div>
       </div>
     );

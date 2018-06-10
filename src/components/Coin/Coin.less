@@ -18,6 +18,13 @@
         position: absolute;
         right: 0;
         bottom: 3px;
+        box-sizing: border-box;
+        & > .round-icon-symbol {
+            font-size: 40px;
+            font-weight: 300;
+            left: 0.5px;
+            top: -3px;
+        }
         &:hover {
             border: 2px solid red;
             background: @navy;
@@ -36,6 +43,10 @@
 
     &:last-child {
         margin: 10px auto 20px auto;
+    }
+
+    &:only-child {
+        margin: 20px auto 10px auto;
     }
 }
 
@@ -72,6 +83,7 @@
 
 .coin-avatar {
     width: 40px;
+    border-radius: 50%;
 }
 
 .coin-acronym {
@@ -168,4 +180,12 @@
             font-size: 24px;
         }
     }
+}
+
+.increase {
+    background: @increase;
+}
+
+.decrease {
+    background: @decrease;
 }

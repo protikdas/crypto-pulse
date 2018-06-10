@@ -57,3 +57,87 @@ p {
     color: @lightGrey;
     transition: all 0.5s ease-in-out;
 }
+
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.enabled {
+    opacity: 1;
+    border: 2px solid @green;
+}
+
+
+.modal-container {
+    position: relative;
+    width: 100vw;
+    height: calc(100vh - 45px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: @transparentBlack;   
+    position: fixed;
+    z-index: 3;
+    @media screen and (min-width: 1024px) {
+        height: calc(100vh - 80px);
+    }
+}
+
+.modal-click-out {
+    cursor: pointer;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+}
+
+.modal {
+    position:  relative;
+    z-index: 1;
+    box-sizing: border-box;
+    width: 90vw;
+    height: 90vw;
+    min-width: 300px;
+    min-height: 300px;
+    max-width: 500px;
+    max-height: 500px;
+    border: 3px solid @blueGrey;
+    background: @tranparentBlueGrey;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    & > h1 {
+        color: @pencilBlueLead;
+        @media screen and (max-width: 600px) {
+            font-size: 20px;
+        }
+    }
+}
+
+.modal-input {
+    width: 90%;
+    height: 40px;
+    background: @transparentBlack;
+    border: none;
+    outline: none;
+    font-family: @rajdhani;
+    font-size: 14px;
+    color: @lightBlue;
+    box-sizing: border-box;
+    padding: 0 20px;
+    letter-spacing: 2px;
+    margin-top: 10px;
+    border-radius: 10px;
+    @media screen and (min-width: 600px) {
+        font-size: 20px;
+        height: 50px;
+    }
+}
+
+input::placeholder {
+    color: @blueGrey;
+    font-family: @rajdhani;
+  }
