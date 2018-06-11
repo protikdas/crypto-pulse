@@ -45,6 +45,8 @@ class App extends Component {
     coinsData.map(coin => {
       if (!isNaN(coin.holding) && !isNaN(coin.price)) {
         return (walletAmount = walletAmount + coin.holding * coin.price);
+      } else {
+        return walletAmount;
       }
     });
     walletAmount = walletAmount.toFixed(2);
