@@ -202,3 +202,30 @@
 .decrease {
     background: @decrease;
 }
+
+.coin-chart-logo-wrapper {
+    position: absolute;
+    top: -6px;
+    right: 16px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+        background: @navy;
+        & > .coin-chart-logo {
+            background: yellow;
+        }
+    }
+}
+
+.coin-chart-logo {
+    background: @lightGrey;
+    width: 30px;
+    height: 30px;
+    mask: url("./chart.svg") no-repeat center;
+}

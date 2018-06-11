@@ -13,7 +13,9 @@ export default class Coin extends Component {
       holding,
       index,
       deleteCoin,
-      openHoldingModal
+      openHoldingModal,
+      toggleChart,
+      chartCoins
     } = this.props;
 
     //Format Price and Total for better viewing
@@ -51,6 +53,17 @@ export default class Coin extends Component {
       }
     }
 
+    //Determine if chart icon color;
+    let selected = false;
+    const colors = ["#EC963F", "#37DB67"];
+    let color = "";
+    if (chartCoins.indexOf(index) > -1) {
+      selected = true;
+      color = colors[chartCoins.indexOf(index)];
+    }
+
+    console.log(color);
+
     return (
       <div className="coin-container">
         <div className="coin">
@@ -86,6 +99,17 @@ export default class Coin extends Component {
         >
           <div className="round-icon-symbol">-</div>
         </div>
+        {viewWidth > 1100 && (
+          <div
+            className={`coin-chart-logo-wrapper ${selected}`}
+            onClick={e => toggleChart(e, index)}
+          >
+            <div
+              className="coin-chart-logo"
+              style={selected ? { background: color } : {}}
+            />
+          </div>
+        )}
       </div>
     );
   }

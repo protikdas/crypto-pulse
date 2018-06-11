@@ -2,14 +2,15 @@
 
 .side-panel-container {
     width: 600px;
-    height: calc(100vh - 80px);
-    min-height: 800px;
+    height: calc(100vh - 45px);
+    // min-height: 800px;
     background: @blueGrey;
     box-shadow: -2px 0px 10px @darkGrey;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    overflow: scroll;
     @media screen and (max-width: 1100px) {
         display: none;
     }

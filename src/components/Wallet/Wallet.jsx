@@ -11,9 +11,9 @@ export default class Wallet extends Component {
   };
 
   render() {
-    const { viewWidth, amount, previousAmount } = this.props;
-    let view = "desktop";
-    if (viewWidth > 1024) {
+    const { viewWidth, amount, previousAmount, pixelRatio } = this.props;
+    let view = "mobile";
+    if (viewWidth > 1024 && pixelRatio > 2) {
       view = "desktop";
     } else {
       view = "mobile";

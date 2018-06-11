@@ -35,7 +35,8 @@ class App extends Component {
       walletAmount: 0,
       addCoinModalOpen: false,
       holdingModalOpen: false,
-      chartCoins: [0, 1]
+      chartCoins: ["X", "X"],
+      pixelRatio: window.devicePixelRatio
     };
   }
 
@@ -205,6 +206,24 @@ class App extends Component {
       });
   };
 
+  //Show/Hide Chart
+  toggleChart = (e, index) => {
+    let chartCoins = Array.from(this.state.chartCoins);
+    const checkExists = chartCoins.indexOf(index);
+    if (checkExists === -1) {
+      chartCoins.unshift(index);
+      chartCoins.splice(chartCoins.length - 1, 1);
+      chartCoins.sort(function(a, b) {
+        return a - b;
+      });
+    } else {
+      chartCoins[checkExists] = "X";
+    }
+    this.setState({
+      chartCoins
+    });
+  };
+
   //Record width of screen on app load, and browser resize
   updateDimensions = () => {
     this.setState({
@@ -279,7 +298,8 @@ class App extends Component {
       addCoinModalOpen,
       holdingModalOpen,
       coinsList,
-      chartCoins
+      chartCoins,
+      pixelRatio
     } = this.state;
     let coinsJSX;
 
@@ -298,6 +318,8 @@ class App extends Component {
           previousPrice={previousPrice}
           deleteCoin={this.deleteCoin}
           openHoldingModal={this.openHoldingModal}
+          toggleChart={this.toggleChart}
+          chartCoins={chartCoins}
         />
       );
     });
@@ -311,6 +333,7 @@ class App extends Component {
               viewWidth={viewWidth}
               amount={walletAmount}
               previousAmount={previousWalletAmount}
+              pixelRatio={pixelRatio}
             />
             <div className="coins-container">{coinsJSX}</div>
             <AddCoinButton action={this.openAddCoinModal} label={true} />
