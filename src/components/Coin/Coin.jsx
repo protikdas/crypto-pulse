@@ -16,13 +16,38 @@ export default class Coin extends Component {
       openHoldingModal
     } = this.props;
 
+    //Format Price and Total for better viewing
     let priceChange = "";
+    let priceShow = 0;
 
     if (previousPrice) {
       if (previousPrice < price) {
         priceChange = "increase";
       } else if (previousPrice > price) {
         priceChange = "decrease";
+      }
+    }
+
+    let total = 0;
+
+    if (!isNaN(holding) && !isNaN(price)) {
+      total = holding * price;
+    }
+
+    if (price) {
+      priceShow = " $" + price;
+      if (viewWidth < 600) {
+        priceShow = "~$" + price.toFixed(0);
+      }
+    }
+
+    if (price === undefined) {
+      priceShow = "N/A";
+    }
+
+    if (total) {
+      if (total.toString().length > 10) {
+        total = total.toFixed(0);
       }
     }
 
@@ -43,12 +68,13 @@ export default class Coin extends Component {
         >
           <p className="holding-text">HOLDING</p>
           <h2 className="coin-price">{holding}</h2>
+          <p className="at-text">{`@${priceShow}`}</p>
         </div>
-        <div className={`price-container ${priceChange}`}>
+        <div className={`price-container ${total ? priceChange : ""}`}>
           {viewWidth < 600 && <p className="holding-text">USD</p>}
           {price && (
-            <h2 className="coin-price">
-              {viewWidth >= 600 ? `$${price}` : price}
+            <h2 className="coin-total">
+              {viewWidth >= 600 ? `$${total}` : total}
             </h2>
           )}
         </div>

@@ -34,7 +34,8 @@ class App extends Component {
       previousWalletAmount: 0,
       walletAmount: 0,
       addCoinModalOpen: false,
-      holdingModalOpen: false
+      holdingModalOpen: false,
+      chartCoins: [0, 1]
     };
   }
 
@@ -56,11 +57,14 @@ class App extends Component {
     });
   };
 
-  closeModal = () => {
-    this.setState({
-      addCoinModalOpen: false,
-      holdingModalOpen: false
-    });
+  //Open and Close Modals
+  openAddCoinModal = () => {
+    const { coinsList } = this.state;
+    if (coinsList.length) {
+      this.setState({
+        addCoinModalOpen: true
+      });
+    }
   };
 
   openHoldingModal = i => {
@@ -69,6 +73,14 @@ class App extends Component {
     });
   };
 
+  closeModal = () => {
+    this.setState({
+      addCoinModalOpen: false,
+      holdingModalOpen: false
+    });
+  };
+
+  //Update holding amount for a coin
   updateHolding = (index, coin) => {
     let coinsData = Array.from(this.state.coinsData);
     coinsData[index] = coin;
@@ -83,15 +95,7 @@ class App extends Component {
     );
   };
 
-  openAddCoinModal = () => {
-    const { coinsList } = this.state;
-    if (coinsList.length) {
-      this.setState({
-        addCoinModalOpen: true
-      });
-    }
-  };
-
+  //Add New Coin
   addCoin = coin => {
     let coinsData = Array.from(this.state.coinsData);
     let checkExists = coinsData.findIndex(c => c.acronym === coin.acronym);
@@ -103,12 +107,13 @@ class App extends Component {
         coinsData
       },
       () => {
-        this.updateCoinValue();
+        this.updateCoinValue("new");
         this.closeModal();
       }
     );
   };
 
+  //Delete Coin from List
   deleteCoin = index => {
     let coinsData = Array.from(this.state.coinsData);
     coinsData.splice(index, 1);
@@ -122,6 +127,7 @@ class App extends Component {
     );
   };
 
+  //Retrieve Coin MetaData from all coins list
   findCoinData = coinAcronym => {
     const { coinsList, coinsData } = this.state;
     let coinIndex = coinsList.findIndex(coin => coin.acronym === coinAcronym);
@@ -142,7 +148,8 @@ class App extends Component {
     }
   };
 
-  updateCoinValue = () => {
+  //Call API to update value of coin
+  updateCoinValue = time => {
     const { coinsData } = this.state;
     const coins = coinsData.map(coin => coin.acronym);
     api
@@ -152,6 +159,33 @@ class App extends Component {
         coinsData.map((coin, index) => {
           let coinData = this.findCoinData(coin.acronym);
           if (coinData && data[coin.acronym].USD) {
+            //Push time and price to exisiting priceHistory
+            if (time === "update") {
+              let priceHistory = Array.from(coinData.priceHistory);
+              priceHistory.push({
+                time: priceHistory[priceHistory.length - 1].time + 10,
+                price: data[coin.acronym].USD
+              });
+              coinData.priceHistory = priceHistory;
+            }
+            //Create priceHistory with empty data for new coin (for comparison)
+            if (time === "new" && index === coinsData.length - 1) {
+              let notApplicableIntervals = 0;
+              let intervalsLengths = [];
+              let priceHistory = [];
+              coinsData.map(coin => {
+                if (coin.priceHistory) {
+                  intervalsLengths.push(coin.priceHistory.length);
+                }
+              });
+              if (intervalsLengths) {
+                let maxIntervals = Math.max(...intervalsLengths);
+                for (let i = 0; i < maxIntervals; i++) {
+                  priceHistory.push({ time: i * 10, price: "N/A" });
+                }
+              }
+              coinData.priceHistory = priceHistory;
+            }
             coinData.previousPrice = coinData.price;
             coinData.price = data[coin.acronym].USD;
           }
@@ -167,16 +201,22 @@ class App extends Component {
         );
       })
       .catch(error => {
-        console.log(error.response);
+        console.log(error);
       });
   };
 
+  //Record width of screen on app load, and browser resize
   updateDimensions = () => {
     this.setState({
       viewWidth: window.innerWidth
     });
   };
 
+  /*
+    Get all coins list (avatar, acronym, coin name), 
+    fetch price for initial coins, set holding to 0, 
+    initiate price history array
+  */
   componentWillMount() {
     api
       .getCoinList()
@@ -196,6 +236,9 @@ class App extends Component {
           if (coinData && data[coin.acronym].USD) {
             coinData.price = data[coin.acronym].USD;
             coinData.holding = 0;
+            coinData.priceHistory = [
+              { time: 0, price: data[coin.acronym].USD }
+            ];
           }
           return (coinsData[index] = coinData);
         });
@@ -208,14 +251,21 @@ class App extends Component {
       });
   }
 
+  /*
+    Activate window resize event listener, 
+    declare setInterval method to call UpdateCoinValue function every 10 seconds
+  */
   componentDidMount() {
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions);
     setInterval(() => {
-      this.updateCoinValue();
+      this.updateCoinValue("update");
     }, 10000);
   }
 
+  /*
+    Remove window resize event listener when app is shut down
+  */
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateDimensions);
   }
@@ -228,7 +278,8 @@ class App extends Component {
       walletAmount,
       addCoinModalOpen,
       holdingModalOpen,
-      coinsList
+      coinsList,
+      chartCoins
     } = this.state;
     let coinsJSX;
 
@@ -262,8 +313,9 @@ class App extends Component {
               previousAmount={previousWalletAmount}
             />
             <div className="coins-container">{coinsJSX}</div>
+            <AddCoinButton action={this.openAddCoinModal} label={true} />
           </div>
-          <SidePanel />
+          <SidePanel coinsData={coinsData} chartCoins={chartCoins} />
           {addCoinModalOpen && (
             <AddCoinModal
               closeModal={this.closeModal}
@@ -281,7 +333,6 @@ class App extends Component {
             />
           )}
         </div>
-        <AddCoinButton action={this.openAddCoinModal} label={true} />
       </div>
     );
   }

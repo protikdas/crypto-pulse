@@ -1,0 +1,44 @@
+@import "../../css/exports.less";
+
+.chart-container {
+    position: relative;
+    width: 450px;
+    height: 300px;
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: inset 0 0 20px @darkGrey;
+    background: @chartBackground;
+    &:first-child {
+        margin: 40px auto 20px auto;
+    }
+}
+
+.chart-avatar {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 50%;
+    opacity: 0.5;
+
+}
+
+.x-axis-label {
+    position: absolute;
+    letter-spacing: 3px;
+    font-size: 18px;
+    color: @lightGrey;
+    bottom: -28px;
+    width: 100%;
+    text-align: center;
+}
+
+.y-axis-label {
+    letter-spacing: 3px;
+    font-size: 18px;
+    text-align: center;
+    color: @lightGrey;
+    position: absolute;
+    transform: rotate(270deg) translate(155px, -120px);
+}
