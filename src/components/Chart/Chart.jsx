@@ -44,6 +44,14 @@ export default class Chart extends Component {
     }
   };
 
+  formatYAxis = tick => {
+    if (tick.toString().length > 9) {
+      return parseFloat(tick).toFixed(2);
+    } else {
+      return tick;
+    }
+  };
+
   render() {
     const { chartData } = this.props;
     let data = [];
@@ -68,10 +76,10 @@ export default class Chart extends Component {
             alt=""
           />
           <LineChart
-            width={420}
+            width={410}
             height={200}
             data={data}
-            margin={{ top: 35, right: 5, bottom: 5, left: 5 }}
+            margin={{ top: 20, right: 0, bottom: 5, left: 30 }}
           >
             <Line
               type="monotone"
@@ -85,6 +93,7 @@ export default class Chart extends Component {
               domain={[yDomain[0], yDomain[1]]}
               stroke="#b2bec3"
               fontFamily="Rajdhani"
+              tickFormatter={this.formatYAxis}
             />
           </LineChart>
           <div className="vertical-text">

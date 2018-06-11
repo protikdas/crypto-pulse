@@ -28,7 +28,7 @@ class App extends Component {
           acronym: "ETH"
         },
         {
-          acronym: "LTC"
+          acronym: "XLR"
         }
       ],
       previousWalletAmount: 0,
@@ -40,6 +40,7 @@ class App extends Component {
     };
   }
 
+  //Calculate Total Portfolio Amount
   calculateWalletAmount = () => {
     const { coinsData } = this.state;
     let previousWalletAmount = this.state.walletAmount;
@@ -166,12 +167,9 @@ class App extends Component {
           if (coinData && data[coin.acronym].USD) {
             //Create priceHistory with empty data for new coin (for comparison)
             if (time === "new") {
-              let intervalsLengths = [];
               let priceHistory = [];
-              coinsData.map(coin => {
-                if (coin.priceHistory) {
-                  intervalsLengths.push(coin.priceHistory.length);
-                }
+              let intervalsLengths = coinsData.map(coin => {
+                return coin.priceHistory ? coin.priceHistory.length : 0;
               });
               if (intervalsLengths.length) {
                 let maxIntervals = Math.max(...intervalsLengths);
@@ -218,12 +216,17 @@ class App extends Component {
   toggleChart = (e, index) => {
     let chartCoins = Array.from(this.state.chartCoins);
     const checkExists = chartCoins.indexOf(index);
+    const emptySlot = chartCoins.indexOf("X");
     if (checkExists === -1) {
-      chartCoins.unshift(index);
-      chartCoins.splice(chartCoins.length - 1, 1);
-      chartCoins.sort(function(a, b) {
-        return a - b;
-      });
+      if (emptySlot !== -1) {
+        chartCoins[emptySlot] = index;
+      } else {
+        chartCoins.unshift(index);
+        chartCoins.splice(chartCoins.length - 1, 1);
+        chartCoins.sort(function(a, b) {
+          return a - b;
+        });
+      }
     } else {
       chartCoins[checkExists] = "X";
     }
