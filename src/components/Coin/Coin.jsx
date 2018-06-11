@@ -12,7 +12,8 @@ export default class Coin extends Component {
       price,
       holding,
       index,
-      deleteCoin
+      deleteCoin,
+      openHoldingModal
     } = this.props;
 
     let priceChange = "";
@@ -34,7 +35,12 @@ export default class Coin extends Component {
             {viewWidth > 600 && <p className="coin-name">{name}</p>}
           </div>
         </div>
-        <div className="holding-container">
+        <div
+          className="holding-container"
+          onClick={() => {
+            openHoldingModal(index);
+          }}
+        >
           <p className="holding-text">HOLDING</p>
           <h2 className="coin-price">{holding}</h2>
         </div>

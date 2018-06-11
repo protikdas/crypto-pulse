@@ -1,24 +1,32 @@
 import React, { Component } from "react";
 import "./Wallet.less";
+import walletUnderStyles from "./WalletStyles.json";
+
+import walletArt from "../../assets/svg/wallet-art.svg";
+import walletIcon from "../../assets/icons/wallet.svg";
 
 export default class Wallet extends Component {
-  // calculateAmount = coinsData => {
-  //   let amount = 0;
-  //   for (let i = 0; i < coinsData.length; i++) {
-  //     const coinData = coinsData[i];
-  //     amount = amount + coinData.holding * coinData.price;
-  //   }
-  //   this.setState({
-  //     amount
-  //   });
-  // };
-
   numberWithCommas = x => {
     return x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   render() {
-    const { viewWidth, amount } = this.props;
+    const { viewWidth, amount, previousAmount } = this.props;
+    let view = "desktop";
+    if (viewWidth > 1024) {
+      view = "desktop";
+    } else {
+      view = "mobile";
+    }
+
+    let amountChange = "none";
+
+    if (amount > previousAmount) {
+      amountChange = view + "AmountIncrease";
+    } else if (amount < previousAmount) {
+      amountChange = view + "AmountDecrease";
+    }
+
     let whole = amount.toString().split(".")[0];
     whole = this.numberWithCommas(whole);
     let decimal = amount.toString().split(".")[1];
@@ -29,7 +37,11 @@ export default class Wallet extends Component {
     return (
       <div className="wallet-positioner">
         <div className="wallet-container">
-          <h2 className="wallet-header">Wallet</h2>
+          <img className="wallet-art" src={walletArt} alt="" />
+          <div className="wallet-header">
+            <img className="wallet-icon" src={walletIcon} alt="" />
+            <h2>Wallet</h2>
+          </div>
           <div
             className="wallet-amount-container"
             style={whole.length > 12 && viewWidth < 600 ? { left: 0 } : {}}
@@ -50,8 +62,11 @@ export default class Wallet extends Component {
             <h2 className="wallet-decimal">{decimal}</h2>
           </div>
         </div>
-        <div className="wallet-under" />
-        <div className="wallet-under-2" />
+        <div className="wallet-under" style={walletUnderStyles[amountChange]} />
+        <div
+          className="wallet-under-2"
+          style={walletUnderStyles[amountChange + "2"]}
+        />
       </div>
     );
   }

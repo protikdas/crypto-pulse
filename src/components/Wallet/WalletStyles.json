@@ -1,0 +1,36 @@
+{
+  "mobileAmountIncrease": {
+    "top": "-143px",
+    "background": "#37DB67"
+  },
+  "mobileAmountDecrease": {
+    "top": "-148px",
+    "background": "#500436"
+  },
+  "mobileAmountIncrease2": {
+    "top": "-296px",
+    "background": "#37DB67"
+  },
+  "mobileAmountDecrease2": {
+    "top": "-302px",
+    "background": "#500436"
+  },
+  "desktopAmountIncrease": {
+    "top": "-155px",
+    "background": "#37DB67"
+  },
+  "desktopAmountDecrease": {
+    "top": "-165px",
+    "background": "#500436"
+  },
+  "desktopAmountIncrease2": {
+    "top": "-325px",
+    "background": "#37DB67"
+  },
+  "desktopAmountDecrease2": {
+    "top": "-340px",
+    "background": "#500436"
+  },
+  "none": {},
+  "none2": {}
+}
