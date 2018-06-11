@@ -35,7 +35,7 @@ class App extends Component {
       walletAmount: 0,
       addCoinModalOpen: false,
       holdingModalOpen: false,
-      chartCoins: ["X", "X"],
+      chartCoins: [0, "X"],
       pixelRatio: window.devicePixelRatio
     };
   }
@@ -117,15 +117,19 @@ class App extends Component {
   //Delete Coin from List
   deleteCoin = index => {
     let coinsData = Array.from(this.state.coinsData);
-    coinsData.splice(index, 1);
-    this.setState(
-      {
-        coinsData
-      },
-      () => {
-        this.updateCoinValue();
+    if (coinsData[0]) {
+      if (coinsData[0].price) {
+        coinsData.splice(index, 1);
+        this.setState(
+          {
+            coinsData
+          },
+          () => {
+            this.updateCoinValue();
+          }
+        );
       }
-    );
+    }
   };
 
   //Retrieve Coin MetaData from all coins list
@@ -160,18 +164,8 @@ class App extends Component {
         coinsData.map((coin, index) => {
           let coinData = this.findCoinData(coin.acronym);
           if (coinData && data[coin.acronym].USD) {
-            //Push time and price to exisiting priceHistory
-            if (time === "update") {
-              let priceHistory = Array.from(coinData.priceHistory);
-              priceHistory.push({
-                time: priceHistory[priceHistory.length - 1].time + 10,
-                price: data[coin.acronym].USD
-              });
-              coinData.priceHistory = priceHistory;
-            }
             //Create priceHistory with empty data for new coin (for comparison)
-            if (time === "new" && index === coinsData.length - 1) {
-              let notApplicableIntervals = 0;
+            if (time === "new") {
               let intervalsLengths = [];
               let priceHistory = [];
               coinsData.map(coin => {
@@ -179,16 +173,30 @@ class App extends Component {
                   intervalsLengths.push(coin.priceHistory.length);
                 }
               });
-              if (intervalsLengths) {
+              if (intervalsLengths.length) {
                 let maxIntervals = Math.max(...intervalsLengths);
                 for (let i = 0; i < maxIntervals; i++) {
                   priceHistory.push({ time: i * 10, price: "N/A" });
                 }
+              } else {
+                priceHistory.push({
+                  time: 0,
+                  price: data[coin.acronym].USD
+                });
               }
               coinData.priceHistory = priceHistory;
             }
             coinData.previousPrice = coinData.price;
             coinData.price = data[coin.acronym].USD;
+          }
+          //Push time and price to exisiting priceHistory
+          if (time === "update") {
+            let priceHistory = Array.from(coinData.priceHistory);
+            priceHistory.push({
+              time: priceHistory[priceHistory.length - 1].time + 10,
+              price: data[coin.acronym].USD
+            });
+            coinData.priceHistory = priceHistory;
           }
           return (coinsData[index] = coinData);
         });
@@ -335,7 +343,9 @@ class App extends Component {
               previousAmount={previousWalletAmount}
               pixelRatio={pixelRatio}
             />
-            <div className="coins-container">{coinsJSX}</div>
+            <div className="coins-positioner">
+              <div className="coins-container">{coinsJSX}</div>
+            </div>
             <AddCoinButton action={this.openAddCoinModal} label={true} />
           </div>
           <SidePanel coinsData={coinsData} chartCoins={chartCoins} />

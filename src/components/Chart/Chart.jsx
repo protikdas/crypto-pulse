@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./Chart.less";
 import { LineChart, XAxis, YAxis, Line } from "recharts";
-import chartIcon from "../../assets/icons/chart.svg";
 
 export default class Chart extends Component {
   constructor() {
@@ -25,20 +24,24 @@ export default class Chart extends Component {
   }
 
   getYAxisDomains = priceHistory => {
-    let max = priceHistory[0].price;
-    let min = priceHistory[0].price;
-    for (let i = 1; i < priceHistory.length; i++) {
-      if (priceHistory[i].price > max) {
-        max = priceHistory[i].price;
-      } else if (priceHistory[i] < min) {
-        min = priceHistory[i].price;
+    if (priceHistory.length) {
+      let max = priceHistory[0].price;
+      let min = priceHistory[0].price;
+      for (let i = 1; i < priceHistory.length; i++) {
+        if (priceHistory[i].price > max) {
+          max = priceHistory[i].price;
+        } else if (priceHistory[i] < min) {
+          min = priceHistory[i].price;
+        }
       }
+
+      max = parseFloat(max).toFixed(0);
+      min = parseFloat(min).toFixed(0);
+
+      return [min, max];
+    } else {
+      return [0, 10000];
     }
-
-    max = parseFloat(max).toFixed(0);
-    min = parseFloat(min).toFixed(0);
-
-    return [min, max];
   };
 
   render() {

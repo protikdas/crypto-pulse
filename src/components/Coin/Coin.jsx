@@ -62,8 +62,6 @@ export default class Coin extends Component {
       color = colors[chartCoins.indexOf(index)];
     }
 
-    console.log(color);
-
     return (
       <div className="coin-container">
         <div className="coin">

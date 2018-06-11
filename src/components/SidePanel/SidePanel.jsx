@@ -17,6 +17,11 @@ export default class SidePanel extends Component {
       );
     });
 
-    return <div className="side-panel-container">{chartsJSX}</div>;
+    return (
+      <div className="side-panel-container">
+        <h2>Price Charts</h2>
+        {chartsJSX}
+      </div>
+    );
   }
 }

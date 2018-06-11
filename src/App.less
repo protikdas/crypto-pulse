@@ -20,20 +20,26 @@
     }
 }
 
+.coins-positioner {
+    width: 90%;
+    overflow: hidden;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, @blueGrey 0%, @blueGrey 50%, @pencilLead 100%);
+    box-shadow: inset 0 0px 10px black;
+}
+
 .coins-container {
     height: calc(100vh - 45px - 330px);
-    box-sizing: border-box;
-    border-radius: 10px;
+    box-sizing: content-box;
+    padding-right: 20px;
     margin: 0 auto;
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     position: relative;
     overflow-y: scroll;
-    background: linear-gradient(to bottom, @blueGrey 0%, @blueGrey 50%, @pencilLead 100%);
-    box-shadow: inset 0 0px 10px black;
     // @media screen and (min-width: 1024px) {
     //     height: calc(100vh - 100px - 330px);
     //     min-height: 445px;
