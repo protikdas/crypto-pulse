@@ -82,7 +82,7 @@ The above api route does not allow a devserver without CORS headers to make a ca
 	https://cors-anywhere.herokuapp.com/https://www.cryptocompare.com/api/data/coinlist/
 	```
 	
-	The CryptoCompareAPI was also used to fetch real time price data for select cryptocurrencies every 10 seconds, and on adding/deleting coins or updating number of a certain coin the user is holding. The GET request (for eg. BTC, ETH, LTC) was sent to:
+The CryptoCompareAPI was also used to fetch real time price data for select cryptocurrencies every 10 seconds, and on adding/deleting coins or updating number of a certain coin the user is holding. The GET request (for eg. BTC, ETH, LTC) was sent to:
 	
 	```
 	https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,LTC&tsyms=USD`
