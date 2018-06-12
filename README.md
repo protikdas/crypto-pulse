@@ -93,20 +93,20 @@ A build folder will be created in the app directory once the build process is co
 
 	The CryptoCompare API was used to fetch metadata (acronym, avatar and name) of over 2000 cryptocurrencies available. The GET request was sent to:
 	
-	```
-	https://www.cryptocompare.com/api/data/coinlist/
-	```
+```
+https://www.cryptocompare.com/api/data/coinlist/
+```
 The above api route does not allow a development server without CORS headers to make calls to it. Therefore, the GET request was proxied as follows:
 
-	```
-	https://cors-anywhere.herokuapp.com/https://www.cryptocompare.com/api/data/coinlist/
-	```
+```
+https://cors-anywhere.herokuapp.com/https://www.cryptocompare.com/api/data/coinlist/
+```
 	
 The CryptoCompare API was also used to fetch real time price data for select cryptocurrencies every 10 seconds, on adding/deleting coins or on updating number of a certain coin the user is holding. The GET request (for eg. BTC, ETH, LTC) was sent to:
 	
-	```
-	https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,LTC&tsyms=USD`
-	```
+```
+https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,LTC&tsyms=USD`
+```
 	
 ## Project Extension
 Currently, Crypto Pulse is a very basic playground for cryptocurrency owners to track the trend of their currencies every 10 seconds, and compare the changes in prices of two different coins using the two chart views available. There is, however, a lot of room for extending the project. Some ideas have been brainstormed below.
